@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # Base de datos PostgreSQL
   postgres:
     image: postgres:15-alpine
     container_name: volsmart-postgres
@@ -18,7 +17,6 @@ services:
     networks:
       - volsmart-network
 
-  # Aplicación NestJS
   app:
     build:
       context: .
@@ -26,7 +24,7 @@ services:
     container_name: volsmart-app
     restart: unless-stopped
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       DATABASE_HOST: postgres
       DATABASE_PORT: 5433
       DATABASE_NAME: volsmart_db
@@ -39,9 +37,12 @@ services:
       - postgres
     networks:
       - volsmart-network
+    volumes:
+      - .:/app
 
 volumes:
   postgres_data:
+  app:
 
 networks:
   volsmart-network:
