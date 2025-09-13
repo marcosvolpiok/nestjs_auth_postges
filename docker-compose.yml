@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: volsmart-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: volsmart_db
+      POSTGRES_USER: volsmart_user
+      POSTGRES_PASSWORD: volsmart_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - volsmart-network
+
+  # Aplicación NestJS
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: volsmart-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5433
+      DATABASE_NAME: volsmart_db
+      DATABASE_USER: volsmart_user
+      DATABASE_PASSWORD: volsmart_password
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - volsmart-network
+
+volumes:
+  postgres_data:
+
+networks:
+  volsmart-network:
+    driver: bridge
