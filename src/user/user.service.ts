@@ -1,10 +1,11 @@
-import { Injectable,
+import {
+  Injectable,
   Inject,
   UnauthorizedException,
-  BadRequestException
+  BadRequestException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User, UserRole } from './user.entity';
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 
@@ -38,6 +39,7 @@ export class UserService {
     const user = this.userRepository.create({
       username,
       password: hashedPassword,
+      role: UserRole.USER,
     });
     return this.userRepository.save(user);
   }
@@ -45,7 +47,10 @@ export class UserService {
   async login(
     username: string,
     password: string,
-  ): Promise<{ token: string; user: { id: number; username: string } }> {
+  ): Promise<{
+    token: string;
+    user: { id: number; username: string; role: UserRole };
+  }> {
     const user = await this.userRepository.findOne({ where: { username } });
 
     if (!user) {
@@ -65,6 +70,7 @@ export class UserService {
       {
         userId: user.id,
         username: user.username,
+        role: user.role,
       },
       this.jwtSecret,
       { expiresIn: '24h' },
@@ -75,7 +81,19 @@ export class UserService {
       user: {
         id: user.id,
         username: user.username,
+        role: user.role,
       },
     };
+  }
+
+  async updateUserRole(userId: number, newRole: UserRole): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new BadRequestException('Usuario no encontrado');
+    }
+
+    user.role = newRole;
+    return this.userRepository.save(user);
   }
 }
