@@ -1,4 +1,8 @@
-import { Injectable, Inject, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import { Injectable,
+  Inject,
+  UnauthorizedException,
+  BadRequestException
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as crypto from 'crypto';
