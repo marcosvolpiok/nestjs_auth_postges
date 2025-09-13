@@ -1,4 +1,4 @@
-import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Inject, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as crypto from 'crypto';
@@ -18,6 +18,14 @@ export class UserService {
   }
 
   async create(username: string, password: string): Promise<User> {
+    const existingUser = await this.userRepository.findOne({
+      where: { username },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException('El usuario ya existe');
+    }
+
     const hashedPassword = crypto
       .createHash('sha1')
       .update(password)
