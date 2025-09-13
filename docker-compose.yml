@@ -6,9 +6,9 @@ services:
     container_name: volsmart-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: volsmart_db
-      POSTGRES_USER: volsmart_user
-      POSTGRES_PASSWORD: volsmart_password
+      - POSTGRES_DB=volsmart_db
+      - POSTGRES_USER=volsmart_user
+      - POSTGRES_PASSWORD=volsmart_password
     ports:
       - "5433:5432"
     volumes:
