@@ -82,3 +82,5 @@ Si querés crear un usuario con rol `ADMIN`, es necesario modificarlo directamen
 Me quedaron tareas pendientes en el desarrollo de esta demostración, como todo programa en la ingeniería de software, las mejoras son incrementales y sería genial implementarlas en versiones futuras.  
 👉 Podés ver un listado de estas en los [issues de GitHub](https://github.com/marcosvolpiok/nestjs_auth_postges/issues).
 
+## ✨ Conclusiones
+Disfruté mucho desarrollar este backend. Sería muy interesante implementar las funcionalidades pendientes en futuras versiones para hacerlo aún más completo.
