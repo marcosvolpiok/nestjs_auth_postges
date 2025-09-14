@@ -21,7 +21,7 @@ import { AdminOnly } from '../auth/admin-only.decorator';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('/admin/users')
+  @Get('/admin/')
   @UseGuards(JwtAuthGuard, AdminOnlyGuard)
   @AdminOnly()
   user(): Promise<User[]> {
@@ -49,7 +49,7 @@ export class UserController {
     return this.userService.login(loginDto.username, loginDto.password);
   }
 
-  @Put('/admin/users/:id/role')
+  @Put('/admin/:id/role')
   @UseGuards(JwtAuthGuard, AdminOnlyGuard)
   @AdminOnly()
   updateUserRole(
