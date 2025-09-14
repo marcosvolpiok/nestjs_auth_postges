@@ -5,7 +5,8 @@
 Aquí encontrarás una demostración de un sistema de **autenticación** junto con un sistema de **autorización basado en atributos (ABAC-lite)**.  
 
 Las tecnologías principales utilizadas son:  
-- [NestJS](https://nestjs.com/)  
+- [NestJS](https://nestjs.com/)
+- [TypeORM](https://typeorm.io/)
 - [PostgreSQL](https://www.postgresql.org/)  
 - [JWT](https://jwt.io/)  
 - [Docker](https://www.docker.com/)  
