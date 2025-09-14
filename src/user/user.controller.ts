@@ -37,12 +37,9 @@ export class UserController {
       CreateUserDto.password,
     );
   }
-  
 
   @Post('/login')
-  login(
-  @Body() loginDto: { username: string; password: string },
-  ): Promise<{
+  login(@Body() loginDto: { username: string; password: string }): Promise<{
     token: string;
     user: { id: number; username: string; role: UserRole };
   }> {

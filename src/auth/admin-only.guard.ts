@@ -25,9 +25,11 @@ export class AdminOnlyGuard implements CanActivate {
     const user = request.user;
 
     if (!user || user.role !== UserRole.ADMIN) {
-      throw new ForbiddenException('Solo los administradores pueden realizar esta acción');
+      throw new ForbiddenException(
+        'Solo los administradores pueden realizar esta acción',
+      );
     }
 
     return true;
   }
-} 
+}

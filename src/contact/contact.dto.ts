@@ -13,4 +13,4 @@ export class AdminContactResponseDto extends ContactResponseDto {
 export class CreateContactDto {
   name: string;
   email: string;
-} 
+}

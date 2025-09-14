@@ -11,7 +11,11 @@ import {
 import { ContactService } from './contact.service';
 import { Contact } from './contact.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ContactResponseDto, AdminContactResponseDto, CreateContactDto } from './contact.dto';
+import {
+  ContactResponseDto,
+  AdminContactResponseDto,
+  CreateContactDto,
+} from './contact.dto';
 
 @Controller('contact')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -20,7 +24,9 @@ export class ContactController {
 
   @Get('/')
   @UseGuards(JwtAuthGuard)
-  contact(@Request() req): Promise<ContactResponseDto[] | AdminContactResponseDto[]> {
+  contact(
+    @Request() req,
+  ): Promise<ContactResponseDto[] | AdminContactResponseDto[]> {
     return this.contactService.findByUserId(req.user.userId, req.user.role);
   }
 

@@ -15,18 +15,21 @@ export class ContactService {
     return this.contactRepository.find();
   }
 
-  async findByUserId(userId: number, userRole: UserRole): Promise<ContactResponseDto[] | AdminContactResponseDto[]> {
+  async findByUserId(
+    userId: number,
+    userRole: UserRole,
+  ): Promise<ContactResponseDto[] | AdminContactResponseDto[]> {
     const contacts = await this.contactRepository.find({ where: { userId } });
-    
+
     if (userRole === UserRole.ADMIN) {
-      return contacts.map(contact => ({
+      return contacts.map((contact) => ({
         id: contact.id,
         name: contact.name,
         email: contact.email,
         userId: contact.userId,
       }));
     } else {
-      return contacts.map(contact => ({
+      return contacts.map((contact) => ({
         id: contact.id,
         name: contact.name,
         userId: contact.userId,
