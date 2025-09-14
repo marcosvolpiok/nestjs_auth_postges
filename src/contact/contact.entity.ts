@@ -14,6 +14,9 @@ export class Contact {
   @Column({ length: 255 })
   name: string;
 
+  @Column({ length: 255 })
+  email: string;
+
   @Column()
   userId: number;
 
